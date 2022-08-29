@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta charset="UTF-8">
+
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+		<br></br>
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Listado de productos</div>
+			<div class="card-body">
+
+
+				<a th:href="@{/producto/nuevo}" class="btn btn-primary">Nuevo</a> <br></br>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<th>Stock</th>
+							<th>SKU</th>
+							<th>Unidad</th>
+							<th>Categoria</th>
+							<th>Almacen</th>
+							<th>Fecha de registro</th>
+							<th>Fecha de baja</th>
+							<th>Mantenimiento de producto</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="producto : ${productos}">
+							<td th:text="${producto.nombre}">HAMP</td>
+							<td th:text="${producto.descripcion}">HAMP</td>
+							<td th:text="${producto.stock}">1</td>
+							<td th:text="${producto.sku}">HAMP</td>
+							<td th:text="${producto.unidad}">1</td>
+							<td th:text="${producto.categoria.nombre}">HAMP</td>
+							<td th:text="${producto.almacen.direccion}">HAMP</td>
+							<td th:text="${producto.fechaR}">HAMP</td>
+							<td th:text="${producto.fechaB}">HAMP</td>
+							<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
+								class="btn btn-success">Editar</a></td>
+							<td><a th:href="@{'/producto/delete/' + ${producto.id}}"
+								class="btn btn-danger">Eliminar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>

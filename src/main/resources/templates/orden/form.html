@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+		<br></br>
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Nueva orden de compra</div>
+			<div class="card-body">
+				<form th:object="${ordenCompra}" th:action="@{/orden/registrar}"
+					th:method="post">
+					<div class="form-group row">
+						<label for="proveedor" class="col-sm-2 col-form-label">Proveedor</label>
+						<div class="col-sm-6">
+							<select id="proveedor" class="form-control"
+								th:field="*{proveedor.id}">
+								<option th:each="proveedor: ${proveedores}"
+									th:text="${proveedor.nombre}" th:value="${proveedor.id}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="serie" class="col-sm-2 col-form-label">Serie de compra</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="serie"
+								th:field="*{serie}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('serie')}" th:errors="*{serie}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="correlativo" class="col-sm-2 col-form-label">Correlativo de compra</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="correlativo"
+								th:field="*{correlativo}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('correlativo')}" th:errors="*{correlativo}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="fechaR" class="col-sm-2 col-form-label">Fecha
+							de registro</label>
+						<div class="col-sm-6">
+							<input type="date" class="form-control" id="fechaR"
+								th:field="*{fechaR}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('fechaR')}" th:errors="*{fechaR}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" value="Guardar" class="btn btn-secondary"></input>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+			<p th:text="${mensaje}" class="form-text text-success"></p>
+		</div>
+	</div>
+
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>
