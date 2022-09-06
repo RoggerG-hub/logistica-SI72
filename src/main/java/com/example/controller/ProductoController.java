@@ -1,9 +1,7 @@
 package com.example.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.entities.Ciudad;
 import com.example.entities.Producto;
-import com.example.entities.Proveedor;
 import com.example.service.AlmacenService;
 import com.example.service.CategoriaService;
 import com.example.service.ProductoService;
@@ -42,7 +38,11 @@ public class ProductoController {
 		return "producto/form";
 	}
 	@PostMapping("/producto/registrar")
-	public String registrarProducto1(@Validated @ModelAttribute Producto producto, BindingResult result, Model model) {		
+	public String registrarProducto1(@Validated @ModelAttribute Producto producto, BindingResult result, Model model) {	
+		LocalDate localDate = LocalDate.now();
+		producto.setFechaB(java.sql.Date.valueOf(localDate));
+		producto.setFechaR(java.sql.Date.valueOf(localDate));
+		producto.setStock(0);
 		int rpta;
 		if(result.hasErrors()) {
 			model.addAttribute("mensaje", "Ingrese los datos");
@@ -60,6 +60,7 @@ public class ProductoController {
 
 		}else 
 		{
+
 			productoService.registrarProducto(producto);
 			model.addAttribute("mensaje", "Se registro el producto");
 			model.addAttribute("producto", new Producto());
@@ -97,24 +98,30 @@ public class ProductoController {
 	}
 	@PostMapping("/producto/actualizar/{id}")
 	public String updateLibro(@PathVariable Long id, @ModelAttribute("producto") Producto producto, Model model) {
-		Producto st = productoService.encontrarProducto(id);
+		
+		try {
+			Producto st = productoService.encontrarProducto(id);
 
-		st.setId(id);
-		st.setNombre(producto.getNombre());
-		st.setDescripcion(producto.getDescripcion());
-		st.setSku(producto.getSku());
-		st.setStock(producto.getStock());
-		st.setUnidad(producto.getUnidad());
-		st.setAlmacen(producto.getAlmacen());
-		st.setCategoria(producto.getCategoria());
-		st.setFechaB(st.getFechaB());
-		st.setFechaR(st.getFechaR());
+			st.setId(id);
+			st.setNombre(producto.getNombre());
+			st.setDescripcion(producto.getDescripcion());
+			st.setSku(producto.getSku());
+			st.setStock(producto.getStock());
+			st.setUnidad(producto.getUnidad());
+			st.setAlmacen(producto.getAlmacen());
+			st.setCategoria(producto.getCategoria());
+			st.setFechaB(st.getFechaB());
+			st.setFechaR(st.getFechaR());
+			
+			productoService.actualizar(st);
 		
-		productoService.actualizar(st);
-	
-			model.addAttribute("mensaje", "Se actualizo los datos del producto");
-			model.addAttribute("producto", new Producto());
-		
+				model.addAttribute("mensaje", "Se actualizo los datos del producto");
+				model.addAttribute("producto", new Producto());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 
 		return "redirect:/producto/lista";
 

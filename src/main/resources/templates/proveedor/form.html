@@ -18,8 +18,8 @@
 						<label for="identificador" class="col-sm-2 col-form-label">Identificador
 							de proveedor(AFX-000)</label>
 						<div class="col-sm-6">
-							<input type="text" maxlength="6" class="form-control" id="identificador"
-								th:field="*{identificador}" /> <small
+							<input type="text" maxlength="6" class="form-control"
+								id="identificador" th:field="*{identificador}" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('identificador')}"
 								th:errors="*{identificador}"></small>
@@ -37,23 +37,41 @@
 					<div class="form-group row">
 						<label for="numero" class="col-sm-2 col-form-label">Número</label>
 						<div class="col-sm-6">
-							<input type="number" maxlength="9" class="form-control" id="numero"
-								th:field="*{numero}" /> <small class="form-text text-danger"
+							<input type="number" maxlength="9" class="form-control"
+								id="numero" th:field="*{numero}" /> <small
+								class="form-text text-danger"
 								th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></small>
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label for="ciudad" class="col-sm-2 col-form-label">Ciudad</label>
+						<label for="correo" class="col-sm-2 col-form-label">Correo</label>
 						<div class="col-sm-6">
-							<select id="ciudad" class="form-control" th:field="*{ciudad.id}">
-								<option th:each="ciudad: ${ciudades}" th:text="${ciudad.nombre}"
-									th:value="${ciudad.id}"></option>
-							</select>
+							<input type="email" maxlength="9" class="form-control"
+								id="correo" th:field="*{correo}" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
 						</div>
 					</div>
-
-
+					<div class="form-group row">
+						<label for="contacto" class="col-sm-2 col-form-label">Contacto</label>
+						<div class="col-sm-6">
+							<input type="text"  class="form-control"
+								id="contacto" th:field="*{contacto}" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('contacto')}" th:errors="*{contacto}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="razon" class="col-sm-2 col-form-label">Razon</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control"
+								id="razon" th:field="*{razon}" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('razon')}" th:errors="*{razon}"></small>
+						</div>
+					</div>
+					
 					<div class="form-group row">
 						<div class="col-sm-6">
 							<input type="submit" value="Guardar" class="btn btn-secondary"></input>

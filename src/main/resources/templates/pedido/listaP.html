@@ -10,7 +10,7 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Listado de ordenes</div>
+			<div class="card-header">Listado de pedidos</div>
 			<div class="card-body">
 
 
@@ -18,20 +18,18 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
-							<th>Proveedor</th>
+							<th>Cliente</th>
 							<th>Serie</th>
 							<th>Correlativo</th>
 							<th>Fecha de registro</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="orden : ${ordenes}">
-							<td th:text="${orden.id}">1</td>
-							<td th:text="${orden.proveedor.nombre}">HAMP</td>
-							<td th:text="${orden.serie}">HAMP</td>
-							<td th:text="${orden.correlativo}">HAMP</td>
-							<td th:text="${orden.fechaR}">HAMP</td>
+						<tr th:each="pedido : ${pedidos}">
+							<td th:text="${pedido.cliente.ruc}">HAMP</td>
+							<td th:text="${pedido.serie}">HAMP</td>
+							<td th:text="${pedido.correlativo}">HAMP</td>
+							<td th:text="${pedido.fechaR}">HAMP</td>
 						</tr>
 					</tbody>
 				</table>

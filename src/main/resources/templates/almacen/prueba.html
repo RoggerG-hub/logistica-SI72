@@ -47,6 +47,41 @@
 
 
 					<div class="form-group row">
+						<label for="estado" class="col-sm-2 col-form-label">Estado</label>
+						<div class="col-sm-6">
+
+							<div class="btn-group">
+								<input type="radio" class="btn-check" name="options"
+									id="option1" autocomplete="off" checked th:field="*{estado}" th:value="1" /> <label
+									class="btn btn-primary" for="option1">Habilitado</label> 
+								<input type="radio" class="btn-check" name="options" id="option2"
+									autocomplete="off" th:field="*{estado}" th:value="0" /> <label class="btn btn-info"
+									for="option2">Desabilitado</label>
+							</div>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label for="fechaC" class="col-sm-2 col-form-label">Fecha
+							de Creación</label>
+						<div class="col-sm-6">
+							<input type="date" class="form-control" id="fechaC"
+								th:field="*{fechaC}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('fechaC')}" th:errors="*{fechaC}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="fechaB" class="col-sm-2 col-form-label">Fecha
+							de Baja</label>
+						<div class="col-sm-6">
+							<input type="date" class="form-control" id="fechaB"
+								th:field="*{fechaB}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('fechaB')}" th:errors="*{fechaB}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
 						<div class="col-sm-6">
 							<input type="submit" value="Guardar" class="btn btn-secondary"></input>
 						</div>

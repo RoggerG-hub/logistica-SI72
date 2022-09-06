@@ -14,7 +14,6 @@
 			<div class="card-body">
 
 
-				<a th:href="@{/producto/nuevo}" class="btn btn-primary">Nuevo</a> <br></br>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -27,7 +26,9 @@
 							<th>Almacen</th>
 							<th>Fecha de registro</th>
 							<th>Fecha de baja</th>
-							<th>Mantenimiento de producto</th>
+							<div sec:authorize="hasRole('ROLE_JEFE')">
+							<th>Mantenimiento</th>
+							</div>
 
 						</tr>
 					</thead>
@@ -42,10 +43,12 @@
 							<td th:text="${producto.almacen.direccion}">HAMP</td>
 							<td th:text="${producto.fechaR}">HAMP</td>
 							<td th:text="${producto.fechaB}">HAMP</td>
+							<div sec:authorize="hasRole('ROLE_JEFE')">
 							<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
 								class="btn btn-success">Editar</a></td>
-							<td><a th:href="@{'/producto/delete/' + ${producto.id}}"
-								class="btn btn-danger">Eliminar</a></td>
+	
+							</div>
+
 						</tr>
 					</tbody>
 				</table>

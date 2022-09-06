@@ -34,7 +34,7 @@ public class CategoriaController {
 	
 		LocalDate localDate = LocalDate.now();
 		categoria.setFechaC(java.sql.Date.valueOf(localDate));
-		
+		categoria.setFechaB(java.sql.Date.valueOf(localDate));
 		int rpta;
 
 		if(result.hasErrors()) {
@@ -112,11 +112,26 @@ public class CategoriaController {
 			st.setDescripcion(categoria.getDescripcion());
 			st.setFechaC(finCategoria.getFechaC());
 			st.setFechaB(finCategoria.getFechaB());
+			st.setEstado(finCategoria.getEstado());
 			categoriaService.actualizar(st);
 		
 
 
 		return "redirect:/categoria/lista";
 
+	}
+	@GetMapping("/categoria/baja/{id}")
+	public String baja(Model model,@PathVariable Long id) {
+		try {
+			categoriaService.dar_baja(id);
+			model.addAttribute("mensaje", "Se dio de baja la categoria con exito");
+
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "No fue posible dar de baja la categoria");
+
+		}
+		model.addAttribute("categorias",categoriaService.listarCategoria());
+
+		return "categoria/listaC";
 	}
 }

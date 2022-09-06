@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,10 @@ public class AlmacenController {
 		if(result.hasErrors()) {
 			return "almacen/form";
 		}
-
+			LocalDate localDate = LocalDate.now();
+			almacen.setEstado(1);
+			almacen.setFechaB(java.sql.Date.valueOf(localDate));
+			almacen.setFechaC(java.sql.Date.valueOf(localDate));
 			almacenService.registrarA(almacen);
 			model.addAttribute("mensaje", "Se registro el almacen");
 			model.addAttribute("almacen", new Almacen());
@@ -40,6 +45,11 @@ public class AlmacenController {
 	public String listarA(Model model) {
 		model.addAttribute("almacenes",almacenService.listarA());
 		return "almacen/listaA";
+	}
+	@GetMapping("/almacen/lista/aux")
+	public String listarX(Model model) {
+		model.addAttribute("almacenes",almacenService.listarA());
+		return "almacen/listaAux";
 	}
 	@GetMapping("/almacen/delete/{id}")
 	public String deleteA(Model model,@PathVariable Long id) {
@@ -62,20 +72,42 @@ public class AlmacenController {
 	}
 	@PostMapping("/actualizar/almacen/{id}")
 	public String updateAl(@PathVariable Long id, @ModelAttribute("almacen") Almacen almacen, Model model) {
+		
+		try {
+			Almacen st = almacenService.encontrarAlmacen(id);
 
-		Almacen st = almacenService.encontrarAlmacen(id);
+			st.setId(id);
+			st.setCodigo(almacen.getCodigo());
+			st.setDescripcion(almacen.getDescripcion());
+			st.setDireccion(almacen.getDireccion());
+			st.setEstado(almacen.getEstado());
+			st.setFechaB(almacenFin.getFechaB());
+			st.setFechaC(almacenFin.getFechaC());
 
-		st.setId(id);
-		st.setCodigo(almacen.getCodigo());
-		st.setDescripcion(almacen.getDescripcion());
-		st.setDireccion(almacen.getDireccion());
-		st.setEstado(almacen.getEstado());
-		st.setFechaB(almacenFin.getFechaB());
-		st.setFechaC(almacenFin.getFechaC());
+			almacenService.actualizarAlmacen(st);
+			model.addAttribute("mensaje", "Se actualizo con exito");
 
-		almacenService.actualizarAlmacen(st);
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "Debe ingresar los datos correctos");
 
-		return "redirect:/almacen/lista";
+		}
+		model.addAttribute("almacenes",almacenService.listarA());
 
+		return "almacen/listaA";
+
+	}
+	@GetMapping("/almacen/baja/{id}")
+	public String baja(Model model,@PathVariable Long id) {
+		try {
+			almacenService.dar_baja(id);
+			model.addAttribute("mensaje", "Se dio de baja al almacen con exito");
+
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "No fue posible dar de baja el almacen");
+
+		}
+		model.addAttribute("almacenes",almacenService.listarA());
+
+		return "almacen/listaA";
 	}
 }

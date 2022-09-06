@@ -40,6 +40,7 @@ public class LoginController {
 
 		if(result.hasErrors() || usuarioService.validar(usuario.getDni())) 
 		{
+			model.addAttribute("mensaje","No se encontro el usuario, ingrese nuevamente");
 			return "redirect:/auth/registro";
 		}else 
 		{
@@ -52,6 +53,8 @@ public class LoginController {
 	@GetMapping("/auth/login")
 	public String login(Model model) 
 	{
+		model.addAttribute("mensaje","No se encontro el usuario, ingrese nuevamente");
+
 		model.addAttribute("usuario", new Usuario());
 		return "inicio";
 	}

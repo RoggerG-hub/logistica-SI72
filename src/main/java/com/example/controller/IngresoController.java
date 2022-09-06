@@ -35,12 +35,19 @@ public class IngresoController {
 	@Autowired
 	UsuarioService usuarioService;
 	Usuario usuario = new Usuario();
+	OrdenCompra ordenNuevo = new OrdenCompra();
+
 	@GetMapping("/ingreso/orden/{id}")
 	public String nuevo(@PathVariable Long id,Model model){
 		model.addAttribute("ordenCompra",new OrdenCompra());
 		model.addAttribute("detalle",new OrdenCompraDetalle());
 		usuario = usuarioService.encontrarUsuario(id);
 		return "ingreso/buscador";
+	}
+	@GetMapping("/ingreso/lista")
+	public String listarIngresos(Model model) {
+		model.addAttribute("ingresos",ingresoMercaderiaService.listaMercaderias());
+		return "ingreso/listaL";
 	}
 	@PostMapping("/orden/buscar")
 	public String buscarOrden(Model model, @ModelAttribute OrdenCompra ordenCompra) {
@@ -50,21 +57,10 @@ public class IngresoController {
 				/*Encontrar Orden*/
 				model.addAttribute("ordenCompra", ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo()));
 				OrdenCompra orden = ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo());
-				model.addAttribute("detalle",ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
-				if(ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()).getConfirmar()==0) 
-				{
-					sumar(ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
-					cambiar(ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
-					/*Guardar Ingreso*/
-					LocalDate localDate = LocalDate.now();
-					IngresoMercaderia ingresoMercaderia = new IngresoMercaderia();
-					ingresoMercaderia.setFechaR(java.sql.Date.valueOf(localDate));
-					ingresoMercaderia.setOrdenCompra(orden);
-					ingresoMercaderia.setUsuario(usuario);
-					ingresoMercaderiaService.registrar(ingresoMercaderia);
-				}
+				ordenNuevo = ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo());
 
-				
+				model.addAttribute("detalle",ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
+		
 			}else 
 			{
 				model.addAttribute("ordenCompra",new OrdenCompra());
@@ -75,32 +71,36 @@ public class IngresoController {
 
 		return "ingreso/buscador";
 	}
-	private void sumar(OrdenCompraDetalle detalle)
-	{
-		
-		Producto actualizar = productoService.encontrarProducto(detalle.getProducto().getId());
-		int cantidad = actualizar.getStock()+detalle.getCantidad();
-		actualizar.setStock(cantidad);
-		actualizar.setId(actualizar.getId());
-		actualizar.setNombre(actualizar.getNombre());
-		actualizar.setDescripcion(actualizar.getDescripcion());
-		actualizar.setSku(actualizar.getSku());
-		actualizar.setUnidad(actualizar.getUnidad());
-		actualizar.setAlmacen(actualizar.getAlmacen());
-		actualizar.setCategoria(actualizar.getCategoria());
-		actualizar.setFechaB(actualizar.getFechaB());
-		actualizar.setFechaR(actualizar.getFechaR());
-		productoService.actualizar(actualizar);
-	}
-	private void cambiar(OrdenCompraDetalle detalle) 
-	{
-		OrdenCompraDetalle nuevo = new OrdenCompraDetalle();
-		nuevo.setCantidad(detalle.getCantidad());
-		nuevo.setConfirmar(1);
-		nuevo.setCosto(detalle.getCosto());
-		nuevo.setId(detalle.getId());
-		nuevo.setOrdenCompra(detalle.getOrdenCompra());
-		nuevo.setProducto(detalle.getProducto());
-		ordenCompraDetalleService.actualizar(nuevo);
+	@GetMapping("/ingreso/registro")
+	public String ingresar(Model model) {
+		if(ordenNuevo.getId()!=null) 
+		{
+			if(ordenCompraService.valiarEstado(ordenNuevo)==0)
+			{
+				ordenCompraDetalleService.suma(ordenCompraDetalleService.encontrarOrdenCompraDetalle(ordenNuevo.getId()));
+				ordenCompraService.cambiar(ordenNuevo);
+				model.addAttribute("mensajeExitoso", "Orden ingresada correctamente");
+				LocalDate localDate = LocalDate.now();
+				IngresoMercaderia ingresoMercaderia = new IngresoMercaderia();
+				ingresoMercaderia.setFechaR(java.sql.Date.valueOf(localDate));
+				ingresoMercaderia.setOrdenCompra(ordenNuevo);
+				ingresoMercaderia.setUsuario(usuario);
+				ingresoMercaderiaService.registrar(ingresoMercaderia);
+			}else 
+			{
+				model.addAttribute("mensaje", "Esta orden ya fue ingresada anteriormente");
+
+			}
+			model.addAttribute("ordenCompra", ordenNuevo);
+			model.addAttribute("detalle", ordenCompraDetalleService.encontrarOrdenCompraDetalle(ordenNuevo.getId()));
+			
+		}else 
+		{
+			model.addAttribute("mensaje", "Complete los recuadros");
+			model.addAttribute("ordenCompra", new OrdenCompra());
+			model.addAttribute("detalle", new OrdenCompraDetalle());
+		}
+
+		return "ingreso/buscador";
 	}
 }

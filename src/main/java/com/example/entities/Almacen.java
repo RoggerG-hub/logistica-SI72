@@ -27,14 +27,16 @@ public class Almacen {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty(message = "Ingrese una descripción")
-	@Column(name = "descripcion", nullable = false, length = 70)
+	@Size(min=5,max=50)
+	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Ingresar el codigo del almacen")
 	@Column(name = "codigo", nullable = false, length = 8)
 	private String codigo;
 	@NotEmpty(message = "Ingrese la dirección del almacen")
-	@Column(name = "direccion", nullable = false, length = 120)
+	@Size(min=5,max=100)
+	@Column(name = "direccion", nullable = false)
 	private String direccion;
 	@Min(value=0,message = "Debe ser un numero mayor")
 	@Max(value=1,message = "Debe ser un numero menor")
@@ -45,7 +47,6 @@ public class Almacen {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion", nullable = false)
 	private Date fechaC;
-	@FutureOrPresent(message = "Fecha de baja no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)

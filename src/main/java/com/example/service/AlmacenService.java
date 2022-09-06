@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,13 @@ public class AlmacenService {
 	public Almacen actualizarAlmacen(Almacen a) 
 	{
 		return almacenRepository.save(a);
+	}
+	public void dar_baja(Long id) 
+	{
+		LocalDate localDate = LocalDate.now();
+		Almacen n = almacenRepository.findById(id).get();
+		n.setEstado(0);
+		n.setFechaB(java.sql.Date.valueOf(localDate));
+		almacenRepository.save(n);
 	}
 }

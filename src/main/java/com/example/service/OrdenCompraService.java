@@ -37,4 +37,26 @@ public class OrdenCompraService {
 	{
 		return ordenCompraRepository.verificarExistencia(correlativo);
 	}
+	public void cambiar(OrdenCompra o) 
+	{
+		OrdenCompra nuevo = new OrdenCompra();
+		nuevo.setCorrelativo(o.getCorrelativo());
+		nuevo.setDetalle(o.getDetalle());
+		nuevo.setEstado(1);
+		nuevo.setFechaR(o.getFechaR());
+		nuevo.setId(o.getId());
+		nuevo.setProveedor(o.getProveedor());
+		nuevo.setSerie(o.getSerie());
+		ordenCompraRepository.save(nuevo);
+	}
+	public int valiarEstado(OrdenCompra o) 
+	{
+		if(o.getEstado()==1) 
+		{
+			return 1;
+		}else 
+		{
+			return 0;
+		}
+	}
 }

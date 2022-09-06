@@ -1,14 +1,18 @@
 package com.example.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +41,11 @@ public class OrdenCompra {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_registro", nullable = false)
 	private Date fechaR;
+	@OneToMany(mappedBy = "ordenCompra", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE}, fetch = FetchType.LAZY)
+	private List<OrdenCompraDetalle> detalle;
+	@Column(name = "estado")
+	private int estado;
 	public Long getId() {
 		return id;
 	}
@@ -67,17 +76,34 @@ public class OrdenCompra {
 	public void setFechaR(Date fechaR) {
 		this.fechaR = fechaR;
 	}
+
+	public List<OrdenCompraDetalle> getDetalle() {
+		return detalle;
+	}
+	public void setDetalle(List<OrdenCompraDetalle> detalle) {
+		this.detalle = detalle;
+	}
+	public OrdenCompra() {
+	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
 	public OrdenCompra(Long id, Proveedor proveedor, @NotEmpty(message = "Ingrese la serie") String serie,
 			@NotEmpty(message = "Ingrese el correlativo") String correlativo,
-			@Past(message = "Fecha de creacion no correcta") Date fechaR) {
+			@Past(message = "Fecha de creacion no correcta") Date fechaR, List<OrdenCompraDetalle> detalle,
+			int estado) {
 		super();
 		this.id = id;
 		this.proveedor = proveedor;
 		this.serie = serie;
 		this.correlativo = correlativo;
 		this.fechaR = fechaR;
+		this.detalle = detalle;
+		this.estado = estado;
 	}
-	public OrdenCompra() {
-	}
+
 	
 }

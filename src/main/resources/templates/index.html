@@ -1,10 +1,114 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="fragments/head"></th:block>
+<meta charset="UTF-8">
+
 <body>
 
 	<th:block th:include="fragments/navbar"></th:block>
 	<div class="container">
+		<br></br>
+		<div sec:authorize="hasRole('ROLE_JEFE')">
+		<div class="card">
+			<div class="card-header">Productos registrados</div>
+			<div class="card-body">
+		<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<th>Stock</th>
+							<th>SKU</th>
+							<th>Unidad</th>
+							<th>Categoria</th>
+							<th>Almacen</th>
+							<th>Fecha de registro</th>
+							<th>Fecha de baja</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="producto : ${productos}">
+							<td th:text="${producto.nombre}">HAMP</td>
+							<td th:text="${producto.descripcion}">HAMP</td>
+							<td th:text="${producto.stock}">1</td>
+							<td th:text="${producto.sku}">HAMP</td>
+							<td th:text="${producto.unidad}">1</td>
+							<td th:text="${producto.categoria.nombre}">HAMP</td>
+							<td th:text="${producto.almacen.direccion}">HAMP</td>
+							<td th:text="${producto.fechaR}">HAMP</td>
+							<td th:text="${producto.fechaB}">HAMP</td>
+
+						</tr>
+					</tbody>
+				</table>
+		
+		</div>
+		</div>
+	</div>
+				<br></br>
+		
+		<div sec:authorize="hasRole('ROLE_JEFE')">
+		<div class="card">
+			<div class="card-header">Proveedores registrados</div>
+			<div class="card-body">
+		<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Identificador</th>
+							<th>Nombre</th>
+							<th>Número</th>
+							<th>Contacto</th>
+							<th>Correo</th>
+							<th>Direccion</th>
+							<th>Razon social</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="proveedor : ${proveedores}">
+							<td th:text="${proveedor.identificador}">HAMP</td>
+							<td th:text="${proveedor.nombre}">HAMP</td>
+							<td th:text="${proveedor.numero}">HAMP</td>
+							<td th:text="${proveedor.contacto}">HAMP</td>
+							<td th:text="${proveedor.correo}">HAMP</td>
+							<td th:text="${proveedor.direccion}">HAMP</td>
+							<td th:text="${proveedor.razon}">HAMP</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+		
+		</div>
+		</div>
+	</div>
+		<div sec:authorize="hasRole('ROLE_AUXILIAR')">
+		<div class="card">
+			<div class="card-header">Ordenes registrados</div>
+			<div class="card-body">
+		<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Proveedor</th>
+							<th>Serie</th>
+							<th>Correlativo</th>
+							<th>Fecha de registro</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="orden : ${ordenes}">
+							<td th:text="${orden.proveedor.nombre}">HAMP</td>
+							<td th:text="${orden.serie}">HAMP</td>
+							<td th:text="${orden.correlativo}">HAMP</td>
+							<td th:text="${orden.fechaR}">HAMP</td>
+						</tr>
+					</tbody>
+				</table>
+		
+		</div>
+		</div>
+	</div>
 		
 	</div>
 

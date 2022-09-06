@@ -8,9 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 
 @Entity
@@ -30,8 +27,6 @@ public class OrdenCompraDetalle {
 	@Min(1)
 	@Column(name = "cantidad", nullable = false)
 	int cantidad;
-	@Column(name = "confirmar", nullable = false)
-	int confirmar;
 	public Long getId() {
 		return id;
 	}
@@ -62,25 +57,17 @@ public class OrdenCompraDetalle {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public int getConfirmar() {
-		return confirmar;
-	}
-	public void setConfirmar(int confirmar) {
-		this.confirmar = confirmar;
-	}
 
-
-	public OrdenCompraDetalle(Long id, OrdenCompra ordenCompra, Producto producto, double costo, @Min(1) int cantidad,
-			int confirmar) {
+	public OrdenCompraDetalle(Long id, OrdenCompra ordenCompra, Producto producto, double costo, @Min(1) int cantidad) {
 		super();
 		this.id = id;
 		this.ordenCompra = ordenCompra;
 		this.producto = producto;
 		this.costo = costo;
 		this.cantidad = cantidad;
-		this.confirmar = confirmar;
 	}
 	public OrdenCompraDetalle() {
+		this.producto=new Producto();
 	}
 	
 }

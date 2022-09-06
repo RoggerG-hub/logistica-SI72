@@ -57,15 +57,6 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="stock" class="col-sm-2 col-form-label">Stock
-							del producto</label>
-						<div class="col-sm-6">
-							<input type="number" class="form-control" id="stock"
-								th:field="*{stock}" /> <small class="form-text text-danger"
-								th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></small>
-						</div>
-					</div>
-					<div class="form-group row">
 						<label for="unidad" class="col-sm-2 col-form-label">Unidad
 							de medida del producto</label>
 						<div class="col-sm-6">
@@ -87,24 +78,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row">
-						<label for="fechaR" class="col-sm-2 col-form-label">Fecha
-							de Registro</label>
-						<div class="col-sm-6">
-							<input type="date" class="form-control" id="fechaR"
-								th:field="*{fechaR}" /> <small class="form-text text-danger"
-								th:if="${#fields.hasErrors('fechaR')}" th:errors="*{fechaR}"></small>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="fechaB" class="col-sm-2 col-form-label">Fecha
-							de Baja</label>
-						<div class="col-sm-6">
-							<input type="date" class="form-control" id="fechaB"
-								th:field="*{fechaB}" /> <small class="form-text text-danger"
-								th:if="${#fields.hasErrors('fechaB')}" th:errors="*{fechaB}"></small>
-						</div>
-					</div>
+					
 
 					<div class="form-group row">
 						<div class="col-sm-6">

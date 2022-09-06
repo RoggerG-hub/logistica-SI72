@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,22 +24,25 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty(message = "Ingrese un nombre")
-	@Column(name = "nombre", nullable = false, length = 70)
+	@Size(min=5,max=70)
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
 	@NotEmpty(message = "Ingrese una descripción")
-	@Column(name = "descripcion", nullable = false, length = 70)
+	@Size(min=5,max=50)
+	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 	@Past(message = "Fecha de creacion no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion", nullable = false)
 	private Date fechaC;
-	@FutureOrPresent(message = "Fecha de baja no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)
 	private Date fechaB;
+	@Column(name = "estado")
+	private int estado;
 	public Long getId() {
 		return id;
 	}
@@ -82,17 +86,28 @@ public class Categoria {
 	public Categoria() {
 	}
 
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+
 	public Categoria(Long id, @NotEmpty(message = "Ingrese un nombre") String nombre,
 			@NotEmpty(message = "Ingrese una descripción") String descripcion,
 			@Past(message = "Fecha de creacion no correcta") Date fechaC,
-			@Past(message = "Fecha de creacion no correcta") Date fechaB) {
+			@FutureOrPresent(message = "Fecha de baja no correcta") Date fechaB, int estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaC = fechaC;
 		this.fechaB = fechaB;
+		this.estado = estado;
 	}
+
+	
 
 	
 }

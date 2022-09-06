@@ -78,7 +78,6 @@ public class ProveedorController {
 		st.setIdentificador(proveedor.getIdentificador());
 		st.setNumero(proveedor.getNumero());
 		st.setNombre(proveedor.getNombre());
-		st.setCiudad(proveedor.getCiudad());
 
 		proveedorService.actualizar(st);
 	

@@ -10,35 +10,42 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Listado de categorias</div>
+			<div class="card-header">Categorias</div>
 			<div class="card-body">
 
+				<div sec:authorize="hasRole('ROLE_JEFE')">
+					<a th:href="@{/categoria/nuevo}" class="btn btn-primary">Nuevo</a>
+					<br></br>
+				</div>
 
-				<a th:href="@{/categoria/nuevo}" class="btn btn-primary">Nuevo</a> <br></br>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
 							<th>Nombre</th>
 							<th>Descripción</th>
 							<th>Fecha Creacion</th>
 							<th>Fecha Baja</th>
-							<th>Mantenimiento</th>
+							<div sec:authorize="hasRole('ROLE_JEFE')">
+								<th></th>
 
+								<th>Mantenimiento</th>
+							</div>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="categoria : ${categorias}">
-							<td th:text="${categoria.id}">1</td>
 							<td th:text="${categoria.nombre}">HAMP</td>
 							<td th:text="${categoria.descripcion}">HAMP</td>
 							<td th:text="${categoria.fechaC}">HAMP</td>
 							<td th:text="${categoria.fechaB}">HAMP</td>
-							<td><a th:href="@{'/categoria/edit/'+ ${categoria.id}}"
-								class="btn btn-success">Editar</a></td>
-							<td><a th:href="@{'/categoria/delete/' + ${categoria.id}}"
-								class="btn btn-danger">Eliminar</a></td>
+							<div sec:authorize="hasRole('ROLE_JEFE')">
+								<td><a th:href="@{'/categoria/edit/'+ ${categoria.id}}"
+									class="btn btn-success">Editar</a></td>
+								<td><a th:href="@{'/categoria/baja/'+${categoria.id}}"
+									class="btn btn-danger">Dar de baja</a></td>
+							</div>
+
 						</tr>
 					</tbody>
 				</table>

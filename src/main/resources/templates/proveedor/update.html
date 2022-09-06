@@ -43,15 +43,7 @@
 						</div>
 					</div>
 
-					<div class="form-group row">
-						<label for="ciudad" class="col-sm-2 col-form-label">Ciudad</label>
-						<div class="col-sm-6">
-							<select id="ciudad" class="form-control" th:field="*{ciudad.id}">
-								<option th:each="ciudad: ${ciudades}" th:text="${ciudad.nombre}"
-									th:value="${ciudad.id}"></option>
-							</select>
-						</div>
-					</div>
+	
 
 
 					<div class="form-group row">

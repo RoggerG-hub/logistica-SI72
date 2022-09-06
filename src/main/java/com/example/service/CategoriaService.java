@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -49,6 +50,15 @@ public class CategoriaService {
 	public Categoria actualizar(Categoria c) 
 	{
 		return categoriaRepository.save(c);
+	}
+	public void dar_baja(Long id) 
+	{
+		LocalDate localDate = LocalDate.now();
+
+		Categoria nCategoria=categoriaRepository.findById(id).get();
+		nCategoria.setFechaB(java.sql.Date.valueOf(localDate));
+		nCategoria.setEstado(0);
+		categoriaRepository.save(nCategoria);
 	}
 	
 }

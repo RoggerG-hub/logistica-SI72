@@ -26,14 +26,15 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty(message = "Ingrese nombre del producto")
-	@Column(name = "nombre", nullable = false, length = 70)
+	@Size(min=5,max=50)
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	
 	@NotEmpty(message = "Ingrese una descripcion")
+	@Size(min=5,max=50)
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 	
-	@Min(0)
 	@Column(name = "stock", nullable = false)
 	int stock;
 	
@@ -41,7 +42,7 @@ public class Producto {
 	@NotEmpty(message = "Ingresar el SKU del producto")
 	@Column(name = "sku", nullable = false, length = 8)
 	private String sku;
-	@Size(min = 1, max = 8)
+	@Size(min = 1, max = 5)
 	@NotEmpty(message = "Ingresar la unidad de medida del producto")
 	@Column(name = "unidad", nullable = false)
 	private String unidad;
@@ -57,7 +58,6 @@ public class Producto {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_registro", nullable = false)
 	private Date fechaR;
-	@FutureOrPresent(message = "Fecha de baja no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)
@@ -100,7 +100,6 @@ public class Producto {
 		this.sku = sku;
 	}
 	public Producto() {
-
 	}
 	public String getUnidad() {
 		return unidad;

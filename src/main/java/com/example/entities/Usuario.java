@@ -26,10 +26,12 @@ public class Usuario {
 	@Column(name="usu_codigo")
 	private Long id;
 	@NotEmpty(message = "Ingresar sus nombres")
-	@Column(name = "nombres", nullable = false, length = 70)
+	@Column(name = "nombres", nullable = false)
+	@Size(min=5,max=10)
 	private String nombres;
 	@NotEmpty(message = "Ingresar sus apellidos")
-	@Column(name = "apellidos", nullable = false, length = 70)
+	@Column(name = "apellidos", nullable = false)
+	@Size(min=8,max=100)
 	private String apellidos;
 	private int edad;
 	@Size(min = 8, max = 8)

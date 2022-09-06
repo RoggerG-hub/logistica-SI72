@@ -26,8 +26,7 @@ public class PedidoDetalle {
 	@Min(1)
 	@Column(name = "cantidad", nullable = false)
 	int cantidad;
-	@Column(name = "confirmar")
-	int confirmar;
+
 	public Long getId() {
 		return id;
 	}
@@ -58,23 +57,18 @@ public class PedidoDetalle {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public int getConfirmar() {
-		return confirmar;
-	}
-	public void setConfirmar(int confirmar) {
-		this.confirmar = confirmar;
-	}
 	public PedidoDetalle() {
+		this.producto=new Producto();
+
 	}
-	public PedidoDetalle(Long id, Pedido pedido, Producto producto, double precio, @Min(1) int cantidad,
-			int confirmar) {
+	public PedidoDetalle(Long id, Pedido pedido, Producto producto, double precio, @Min(1) int cantidad) {
 		super();
 		this.id = id;
 		this.pedido = pedido;
 		this.producto = producto;
 		this.precio = precio;
 		this.cantidad = cantidad;
-		this.confirmar = confirmar;
 	}
+
 	
 }

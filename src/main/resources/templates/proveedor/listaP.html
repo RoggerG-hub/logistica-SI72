@@ -10,35 +10,32 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Listado de proveedores</div>
+			<div class="card-header">Proveedores</div>
 			<div class="card-body">
 
 
-				<a th:href="@{/proveedor/nuevo}" class="btn btn-primary">Nuevo</a> <br></br>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
 							<th>Identificador</th>
 							<th>Nombre</th>
 							<th>Número</th>
-							<th>Ciudad</th>
-							<th>Mantenimiento</th>
+							<th>Contacto</th>
+							<th>Correo</th>
+							<th>Direccion</th>
+							<th>Razon social</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="proveedor : ${proveedores}">
-							<td th:text="${proveedor.id}">1</td>
 							<td th:text="${proveedor.identificador}">HAMP</td>
 							<td th:text="${proveedor.nombre}">HAMP</td>
 							<td th:text="${proveedor.numero}">HAMP</td>
-							<td th:text="${proveedor.ciudad.nombre}">HAMP</td>
-										<td><a th:href="@{'/proveedor/edit/'+ ${proveedor.id}}"
-								class="btn btn-success">Editar</a></td>
-							<td><a th:href="@{'/proveedor/delete/' + ${proveedor.id}}"
-								class="btn btn-danger">Eliminar</a></td>
-
+							<td th:text="${proveedor.contacto}">HAMP</td>
+							<td th:text="${proveedor.correo}">HAMP</td>
+							<td th:text="${proveedor.direccion}">HAMP</td>
+							<td th:text="${proveedor.razon}">HAMP</td>
 						</tr>
 					</tbody>
 				</table>
