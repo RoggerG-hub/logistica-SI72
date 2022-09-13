@@ -18,10 +18,10 @@ public class ProveedorService {
 	}
 	public int registraProveedor(Proveedor p) 
 	{
-		int existe = proveedorRepository.verificarExistencia(p.getIdentificador());
+		int existe = proveedorRepository.verificarExistencia(p.getRuc());
 		if(existe==0) 
 		{
-			if(proveedorRepository.findByIdentificadorContainingIgnoreCase(p.getIdentificador()).size()==0) 
+			if(proveedorRepository.findByRucContainingIgnoreCase(p.getRuc()).size()==0) 
 			{
 				proveedorRepository.save(p);
 

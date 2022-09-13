@@ -10,18 +10,16 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Listado de productos</div>
+			<div class="card-header">Categorias</div>
 			<div class="card-body">
-
 
 				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>Codigo</th>
 							<th>Descripción</th>
-							<th>Categoria</th>
-							<th>Almacen</th>
 							<th>Estado</th>
-							<th>Fecha de creacion</th>
+							<th>Fecha Creacion</th>
 							<div sec:authorize="hasRole('ROLE_JEFE')">
 								<th>Mantenimiento</th>
 							</div>
@@ -29,23 +27,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="producto : ${productos}">
-							<td th:text="${producto.descripcion}">HAMP</td>
-							<td th:text="${producto.categoria.descripcion}">HAMP</td>
-							<td th:text="${producto.almacen.direccion}">HAMP</td>
-							<td th:text="${producto.estado}">1</td>
-							<td th:text="${producto.fechaR}">HAMP</td>
+						<tr th:each="categoria : ${categorias}">
+							<td th:text="${categoria.id}">HAMP</td>
+							<td th:text="${categoria.descripcion}">HAMP</td>
+							<td th:text="${categoria.estado}">HAMP</td>
+							<td th:text="${categoria.fechaC}">HAMP</td>
 							<div sec:authorize="hasRole('ROLE_JEFE')">
-								<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
-									class="btn btn-success">Editar</a></td>
-								<td><a th:href="@{'/producto/baja/'+${producto.id}}"
-									class="btn btn-danger">Dar de baja</a></td>
+								<td><a th:href="@{'/categoria/activar/'+ ${categoria.id}}"
+									class="btn btn-success">Activar</a></td>
 							</div>
 
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			<p th:text="${mensaje}" class="form-text text-danger"></p>
 
 		</div>
 

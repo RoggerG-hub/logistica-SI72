@@ -25,10 +25,7 @@ public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Ingrese nombre del producto")
-	@Size(min=5,max=50)
-	@Column(name = "nombre", nullable = false)
-	private String nombre;
+
 	
 	@NotEmpty(message = "Ingrese una descripcion")
 	@Size(min=5,max=50)
@@ -37,7 +34,8 @@ public class Producto {
 	
 	@Column(name = "stock", nullable = false)
 	int stock;
-	
+	@Column(name = "estado", nullable = false)
+	int estado;
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Ingresar el SKU del producto")
 	@Column(name = "sku", nullable = false, length = 8)
@@ -62,18 +60,17 @@ public class Producto {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)
 	private Date fechaB;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_modificacion", nullable = false)
+	private Date fechaM;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -125,23 +122,38 @@ public class Producto {
 	public void setFechaB(Date fechaB) {
 		this.fechaB = fechaB;
 	}
-	public Producto(Long id, @NotEmpty(message = "Ingrese nombre del producto") String nombre,
-			@NotEmpty(message = "Ingrese una descripcion") String descripcion, @Min(1) int stock,
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	public Date getFechaM() {
+		return fechaM;
+	}
+	public void setFechaM(Date fechaM) {
+		this.fechaM = fechaM;
+	}
+	public Producto(Long id, @NotEmpty(message = "Ingrese una descripcion") @Size(min = 5, max = 50) String descripcion,
+			int stock, int estado,
 			@Size(min = 8, max = 8) @NotEmpty(message = "Ingresar el SKU del producto") String sku,
-			@Size(min = 8, max = 8) @NotEmpty(message = "Ingresar la unidad de medida del producto") String unidad,
+			@Size(min = 1, max = 5) @NotEmpty(message = "Ingresar la unidad de medida del producto") String unidad,
 			Categoria categoria, Almacen almacen, @Past(message = "Fecha de registro no correcta") Date fechaR,
-			@Past(message = "Fecha de baja no correcta") Date fechaB) {
+			Date fechaB, Date fechaM) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.stock = stock;
+		this.estado = estado;
 		this.sku = sku;
 		this.unidad = unidad;
 		this.categoria = categoria;
 		this.almacen = almacen;
 		this.fechaR = fechaR;
 		this.fechaB = fechaB;
+		this.fechaM = fechaM;
 	}
+
+
 
 }

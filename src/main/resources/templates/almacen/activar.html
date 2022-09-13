@@ -10,28 +10,34 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Listado de pedidos</div>
+			<div class="card-header">Listado de almacenes</div>
 			<div class="card-body">
 
 
-				<br></br>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Cliente</th>
-							<th>Serie</th>
-							<th>Correlativo</th>
+							<th>Codigo</th>
+							<th>Descripción</th>
+							<th>Direccion</th>
 							<th>Estado</th>
-							<th>Fecha de registro</th>
+							<th>Fecha de creación</th>
+							<th>Fecha de baja</th>
+							<th>Mantenimiento</th>
+
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="pedido : ${pedidos}">
-							<td th:text="${pedido.cliente.ruc}">HAMP</td>
-							<td th:text="${pedido.serie}">HAMP</td>
-							<td th:text="${pedido.correlativo}">HAMP</td>
-							<td th:text="${pedido.estado}">HAMP</td>
-							<td th:text="${pedido.fechaR}">HAMP</td>
+						<tr th:each="almacen : ${almacenes}">
+							<td th:text="${almacen.codigo}">HAMP</td>
+							<td th:text="${almacen.descripcion}">HAMP</td>
+							<td th:text="${almacen.direccion}">1</td>
+							<td th:text="${almacen.estado}">HAMP</td>
+							<td th:text="${almacen.fechaC}">HAMP</td>
+							<td th:text="${almacen.fechaB}">HAMP</td>
+							<td><a th:href="@{'/almacen/activar/'+ ${almacen.id}}"
+								class="btn btn-success">Activar</a></td>
+							
 						</tr>
 					</tbody>
 				</table>

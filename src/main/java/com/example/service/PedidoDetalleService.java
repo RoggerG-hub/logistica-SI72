@@ -32,7 +32,6 @@ public class PedidoDetalleService {
 				int cantidad = actualizar.getStock()-lista.get(i).getCantidad();
 				actualizar.setStock(cantidad);
 				actualizar.setId(actualizar.getId());
-				actualizar.setNombre(actualizar.getNombre());
 				actualizar.setDescripcion(actualizar.getDescripcion());
 				actualizar.setSku(actualizar.getSku());
 				actualizar.setUnidad(actualizar.getUnidad());
