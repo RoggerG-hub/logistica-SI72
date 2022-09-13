@@ -22,17 +22,15 @@
 							<th>Proveedor</th>
 							<th>Serie</th>
 							<th>Correlativo</th>
-							<th>Estado</th>
 							<th>Fecha de registro</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="orden : ${ordenes}">
 							<td th:text="${orden.id}">1</td>
-							<td th:text="${orden.proveedor.contacto}">HAMP</td>
+							<td th:text="${orden.proveedor.nombre}">HAMP</td>
 							<td th:text="${orden.serie}">HAMP</td>
 							<td th:text="${orden.correlativo}">HAMP</td>
-							<td th:text="${orden.estado}">HAMP</td>
 							<td th:text="${orden.fechaR}">HAMP</td>
 						</tr>
 					</tbody>

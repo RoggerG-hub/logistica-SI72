@@ -1,6 +1,5 @@
 package com.example.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,29 +51,5 @@ public class ProductoService {
 	public Producto actualizar(Producto c) 
 	{
 		return productoRepository.save(c);
-	}
-	public void dar_baja(Long id) 
-	{		
-		LocalDate localDate = LocalDate.now();
-
-		Producto p =productoRepository.findById(id).get();
-		p.setEstado(0);
-		p.setFechaB(java.sql.Date.valueOf(localDate));
-		productoRepository.save(p);
-	}
-	public void activar(Long id) 
-	{		
-
-		Producto p =productoRepository.findById(id).get();
-		p.setEstado(1);
-		productoRepository.save(p);
-	}
-	public List<Producto> activado()
-	{	
-		return productoRepository.findByEstado(1);
-	}
-	public List<Producto> desactivado()
-	{	
-		return productoRepository.findByEstado(0);
 	}
 }

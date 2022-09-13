@@ -39,6 +39,14 @@
 							<div class="text-center text-lg-start mt-4 pt-2">
 								<input type="submit" class="btn btn-lg btn-primary btn-block"
 									value="Ingresar" />
+								<p class="small fw-bold mt-2 pt-1 mb-0">
+									No tiene una cuenta? <a th:href="@{/auth/registro}"
+										class="link-danger">Registrar</a>
+								</p>
+								<p class="small fw-bold mt-2 pt-1 mb-0">
+									Landing <a th:href="@{/auth/landing}"
+										class="link-danger">Page</a>
+								</p>
 							</div>
 							<p th:text="${mensaje}" class="form-text text-danger"></p>
 

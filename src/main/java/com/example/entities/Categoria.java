@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -22,7 +23,10 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	@NotEmpty(message = "Ingrese un nombre")
+	@Size(min=5,max=70)
+	@Column(name = "nombre", nullable = false)
+	private String nombre;
 
 	@NotEmpty(message = "Ingrese una descripción")
 	@Size(min=5,max=50)
@@ -37,10 +41,6 @@ public class Categoria {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)
 	private Date fechaB;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_modificacion", nullable = false)
-	private Date fechaM;
 	@Column(name = "estado")
 	private int estado;
 	public Long getId() {
@@ -51,6 +51,13 @@ public class Categoria {
 		this.id = id;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -87,27 +94,20 @@ public class Categoria {
 		this.estado = estado;
 	}
 
-	public Date getFechaM() {
-		return fechaM;
-	}
-
-	public void setFechaM(Date fechaM) {
-		this.fechaM = fechaM;
-	}
-
-	public Categoria(Long id,
-			@NotEmpty(message = "Ingrese una descripción") @Size(min = 5, max = 50) String descripcion,
-			@Past(message = "Fecha de creacion no correcta") Date fechaC, Date fechaB, Date fechaM, int estado) {
+	public Categoria(Long id, @NotEmpty(message = "Ingrese un nombre") String nombre,
+			@NotEmpty(message = "Ingrese una descripción") String descripcion,
+			@Past(message = "Fecha de creacion no correcta") Date fechaC,
+			@FutureOrPresent(message = "Fecha de baja no correcta") Date fechaB, int estado) {
 		super();
 		this.id = id;
+		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaC = fechaC;
 		this.fechaB = fechaB;
-		this.fechaM = fechaM;
 		this.estado = estado;
 	}
 
-
+	
 
 	
 }

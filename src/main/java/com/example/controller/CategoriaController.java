@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.entities.Categoria;
+import com.example.entities.Ciudad;
+import com.example.entities.Producto;
 import com.example.service.CategoriaService;
 
 
@@ -32,7 +35,6 @@ public class CategoriaController {
 		LocalDate localDate = LocalDate.now();
 		categoria.setFechaC(java.sql.Date.valueOf(localDate));
 		categoria.setFechaB(java.sql.Date.valueOf(localDate));
-		categoria.setFechaM(java.sql.Date.valueOf(localDate));
 		int rpta;
 
 		if(result.hasErrors()) {
@@ -54,13 +56,8 @@ public class CategoriaController {
 	}
 	@GetMapping("/categoria/lista")
 	public String listarCategorias(Model model) {
-		model.addAttribute("categorias",categoriaService.activo());
+		model.addAttribute("categorias",categoriaService.listarCategoria());
 		return "categoria/listaC";
-	}
-	@GetMapping("/categoria/lista/baja")
-	public String listarCategoriasS(Model model) {
-		model.addAttribute("categorias",categoriaService.desactivo());
-		return "categoria/listaA";
 	}
 	@GetMapping("/categoria/edit/{id}")
 	public String editC(@PathVariable Long id, Model model) {
@@ -85,15 +82,15 @@ public class CategoriaController {
 		Categoria st = categoriaService.encontrarCategoria(id);
 
 		st.setId(id);
+		st.setNombre(categoria.getNombre());
 		st.setDescripcion(categoria.getDescripcion());
 		st.setFechaC(categoria.getFechaC());
 		st.setFechaB(categoria.getFechaB());
-		st.setFechaM(categoria.getFechaM());
 		int rpta;
 		rpta=categoriaService.registrarCategoria(st);
 		if(rpta>0) 
 		{
-			model.addAttribute("mensaje", "Ya existe una categoria con esa descripcion");
+			model.addAttribute("mensaje", "Ya existe una categoria con ese nombre");
 
 		}else 
 		{
@@ -109,13 +106,12 @@ public class CategoriaController {
 	public String updateCC(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
 		
 			Categoria st = categoriaService.encontrarCategoria(id);
-			LocalDate localDate = LocalDate.now();
 
 			st.setId(id);
+			st.setNombre(categoria.getNombre());
 			st.setDescripcion(categoria.getDescripcion());
 			st.setFechaC(finCategoria.getFechaC());
 			st.setFechaB(finCategoria.getFechaB());
-			st.setFechaM(java.sql.Date.valueOf(localDate));
 			st.setEstado(finCategoria.getEstado());
 			categoriaService.actualizar(st);
 		
@@ -134,22 +130,8 @@ public class CategoriaController {
 			model.addAttribute("mensaje", "No fue posible dar de baja la categoria");
 
 		}
-		model.addAttribute("categorias",categoriaService.activo());
+		model.addAttribute("categorias",categoriaService.listarCategoria());
 
 		return "categoria/listaC";
-	}
-	@GetMapping("/categoria/activar/{id}")
-	public String activo(Model model,@PathVariable Long id) {
-		try {
-			categoriaService.activar(id);
-			model.addAttribute("mensaje", "Se activo la categoria con exito");
-
-		} catch (Exception e) {
-			model.addAttribute("mensaje", "No fue posible activar la categoria");
-
-		}
-		model.addAttribute("categorias",categoriaService.desactivo());
-
-		return "categoria/listaA";
 	}
 }

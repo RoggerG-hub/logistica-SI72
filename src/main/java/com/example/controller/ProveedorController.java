@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.entities.Ciudad;
 import com.example.entities.Proveedor;
 import com.example.service.CiudadService;
 import com.example.service.ProveedorService;
@@ -74,8 +75,9 @@ public class ProveedorController {
 		Proveedor st = proveedorService.buscarProveedor(id);
 
 		st.setId(id);
-		st.setRuc(proveedor.getRuc());
+		st.setIdentificador(proveedor.getIdentificador());
 		st.setNumero(proveedor.getNumero());
+		st.setNombre(proveedor.getNombre());
 
 		proveedorService.actualizar(st);
 	

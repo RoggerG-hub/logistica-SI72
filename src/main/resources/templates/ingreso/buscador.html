@@ -64,7 +64,7 @@
 								de compra</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" id="proveedor"
-									th:field="*{proveedor.contacto}" />
+									th:field="*{proveedor.nombre}" />
 							</div>
 						</div>
 
@@ -93,7 +93,7 @@
 
 											<td th:text="${detalleCompra.costo}"></td>
 											<td th:text="${detalleCompra.cantidad}"></td>
-											<td th:text="${detalleCompra.producto.descripcion}">mdo</td>
+											<td th:text="${detalleCompra.producto.nombre}">mdo</td>
 
 										</tr>
 									</tbody>

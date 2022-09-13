@@ -20,9 +20,10 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> Almacen </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/almacen/nuevo}">Registrar nuevo
+						<a class="dropdown-item" th:href="@{/almacen/nuevo}">Nuevo
 							almacen</a> <a class="dropdown-item" th:href="@{/almacen/lista}">Lista
-							almacenes</a> <a class="dropdown-item" th:href="@{/almacen/lista/desactivado}">Almacenes dados de baja</a>
+							almacenes</a>
+
 
 						<div class="dropdown-divider"></div>
 					</div></li>
@@ -40,10 +41,6 @@
 						<a class="dropdown-item" th:href="@{/categoria/lista}">Editar
 							categorias</a>
 					</div>
-					<div sec:authorize="hasRole('ROLE_JEFE')">
-						<a class="dropdown-item" th:href="@{/categoria/lista/baja}">Categorias
-							dadas de baja</a>
-					</div>
 					<div sec:authorize="hasRole('ROLE_AUXILIAR')">
 						<a class="dropdown-item" th:href="@{/categoria/lista}">Ver
 							categorias</a>
@@ -59,8 +56,8 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> Proveedor </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/proveedor/lista}">Ver
-							proveedores</a>
+						<a class="dropdown-item"
+							th:href="@{/proveedor/lista}">Ver proveedores</a>
 
 
 						<div class="dropdown-divider"></div>
@@ -86,10 +83,7 @@
 						<a class="dropdown-item" th:href="@{/producto/lista}">Ver
 							productos</a>
 					</div>
-					<div sec:authorize="hasRole('ROLE_JEFE')">
-						<a class="dropdown-item" th:href="@{/producto/desactivado}">Productos
-							dadas de baja</a>
-					</div>
+
 					<div class="dropdown-divider"></div>
 				</div></li>
 
@@ -154,7 +148,8 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
 							th:href="@{'/ingreso/orden/'+ ${session.usuario.id}}">Registrar
-							ingreso</a> <a class="dropdown-item" th:href="@{/ingreso/lista}">Reporte
+							ingreso</a> <a class="dropdown-item"
+							th:href="@{/ingreso/lista}">Reporte
 							de ingresos</a>
 
 						<div class="dropdown-divider"></div>
@@ -168,9 +163,9 @@
 					aria-expanded="false"> Salida de mercaderia </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
-							th:href="@{'/salida/pedido/'+ ${session.usuario.id}}">Registrar
-							salida </a> <a class="dropdown-item" th:href="@{/salida/lista}">Reporte
-							de salida</a>
+							th:href="@{'/salida/pedido/'+ ${session.usuario.id}}">Registrar salida
+						</a> <a class="dropdown-item"
+							th:href="@{/salida/lista}">Reporte de salida</a>
 
 						<div class="dropdown-divider"></div>
 					</div></li>

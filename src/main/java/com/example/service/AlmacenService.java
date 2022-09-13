@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.entities.Almacen;
-import com.example.entities.Categoria;
 import com.example.repository.AlmacenRepository;
 
 @Service
@@ -36,27 +35,11 @@ public class AlmacenService {
 		return almacenRepository.save(a);
 	}
 	public void dar_baja(Long id) 
-	{		
+	{
 		LocalDate localDate = LocalDate.now();
-
-		Almacen nAlmacen = almacenRepository.findById(id).get();
-		nAlmacen.setFechaB(java.sql.Date.valueOf(localDate));
-		nAlmacen.setEstado(0);
-		almacenRepository.save(nAlmacen);
-	}
-	public void activar(Long id) 
-	{		
-
-		Almacen nAlmacen = almacenRepository.findById(id).get();
-		nAlmacen.setEstado(1);
-		almacenRepository.save(nAlmacen);
-	}
-	public List<Almacen> activo()
-	{
-		return almacenRepository.findByEstado(1);
-	}
-	public List<Almacen> desactivo()
-	{
-		return almacenRepository.findByEstado(0);
+		Almacen n = almacenRepository.findById(id).get();
+		n.setEstado(0);
+		n.setFechaB(java.sql.Date.valueOf(localDate));
+		almacenRepository.save(n);
 	}
 }

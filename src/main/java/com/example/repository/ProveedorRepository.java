@@ -9,8 +9,8 @@ import com.example.entities.Categoria;
 import com.example.entities.Proveedor;
 
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long>{
-	@Query("SELECT count(p) FROM Proveedor p  WHERE p.ruc=?1")
-	int verificarExistencia(String ruc);
-	List<Proveedor> findByRucContainingIgnoreCase(String ruc);
+	@Query("SELECT count(p) FROM Proveedor p  WHERE p.identificador=?1")
+	int verificarExistencia(String identificador);
+	List<Proveedor> findByIdentificadorContainingIgnoreCase(String identificador);
 
 }

@@ -15,6 +15,7 @@
 		<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>Nombre</th>
 							<th>Descripción</th>
 							<th>Stock</th>
 							<th>SKU</th>
@@ -22,18 +23,21 @@
 							<th>Categoria</th>
 							<th>Almacen</th>
 							<th>Fecha de registro</th>
+							<th>Fecha de baja</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="producto : ${productos}">
+							<td th:text="${producto.nombre}">HAMP</td>
 							<td th:text="${producto.descripcion}">HAMP</td>
 							<td th:text="${producto.stock}">1</td>
 							<td th:text="${producto.sku}">HAMP</td>
 							<td th:text="${producto.unidad}">1</td>
-							<td th:text="${producto.categoria.descripcion}">HAMP</td>
+							<td th:text="${producto.categoria.nombre}">HAMP</td>
 							<td th:text="${producto.almacen.direccion}">HAMP</td>
 							<td th:text="${producto.fechaR}">HAMP</td>
+							<td th:text="${producto.fechaB}">HAMP</td>
 
 						</tr>
 					</tbody>
@@ -51,7 +55,8 @@
 		<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Ruc</th>
+							<th>Identificador</th>
+							<th>Nombre</th>
 							<th>Número</th>
 							<th>Contacto</th>
 							<th>Correo</th>
@@ -62,7 +67,8 @@
 					</thead>
 					<tbody>
 						<tr th:each="proveedor : ${proveedores}">
-							<td th:text="${proveedor.ruc}">HAMP</td>
+							<td th:text="${proveedor.identificador}">HAMP</td>
+							<td th:text="${proveedor.nombre}">HAMP</td>
 							<td th:text="${proveedor.numero}">HAMP</td>
 							<td th:text="${proveedor.contacto}">HAMP</td>
 							<td th:text="${proveedor.correo}">HAMP</td>
@@ -92,7 +98,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="orden : ${ordenes}">
-							<td th:text="${orden.proveedor.contacto}">HAMP</td>
+							<td th:text="${orden.proveedor.nombre}">HAMP</td>
 							<td th:text="${orden.serie}">HAMP</td>
 							<td th:text="${orden.correlativo}">HAMP</td>
 							<td th:text="${orden.fechaR}">HAMP</td>

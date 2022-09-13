@@ -9,8 +9,7 @@ import com.example.entities.Categoria;
 
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
-	@Query("SELECT count(c) FROM Categoria c  WHERE c.descripcion=?1")
-	int verificarExistencia(String descripcion);
-	List<Categoria> findByDescripcionContainingIgnoreCase(String descripcion);
-	List<Categoria> findByEstado(int e);
+	@Query("SELECT count(c) FROM Categoria c  WHERE c.nombre=?1")
+	int verificarExistencia(String nombre);
+	List<Categoria> findByNombreContainingIgnoreCase(String nombre);
 }

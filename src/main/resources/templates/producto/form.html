@@ -23,10 +23,19 @@
 								th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}"></small>
 						</div>
 					</div>
+					<div class="form-group row">
+						<label for="nombre" class="col-sm-2 col-form-label">Nombre
+							del producto</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="nombre"
+								th:field="*{nombre}" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
 
 					<div class="form-group row">
 						<label for="descripcion" class="col-sm-2 col-form-label">Descripción
-						</label>
+							del producto</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="descripcion"
 								th:field="*{descripcion}" /> <small
@@ -35,26 +44,28 @@
 								th:errors="*{descripcion}"></small>
 						</div>
 					</div>
-						<div class="form-group row">
+					<div class="form-group row">
+						<label for="categoria" class="col-sm-2 col-form-label">Categoria
+							del producto</label>
+						<div class="col-sm-6">
+							<select id="categoria" class="form-control"
+								th:field="*{categoria.id}">
+								<option th:each="categoria: ${categorias}"
+									th:text="${categoria.nombre}" th:value="${categoria.id}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
 						<label for="unidad" class="col-sm-2 col-form-label">Unidad
-							de medida</label>
+							de medida del producto</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="unidad"
 								th:field="*{unidad}" /> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('unidad')}" th:errors="*{unidad}"></small>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="categoria" class="col-sm-2 col-form-label">Categoria
-							</label>
-						<div class="col-sm-6">
-							<select id="categoria" class="form-control"
-								th:field="*{categoria.id}">
-								<option th:each="categoria: ${categorias}"
-									th:text="${categoria.descripcion}" th:value="${categoria.id}"></option>
-							</select>
-						</div>
-					</div>
+
 
 					<div class="form-group row">
 						<label for="almacen" class="col-sm-2 col-form-label">Almacen</label>

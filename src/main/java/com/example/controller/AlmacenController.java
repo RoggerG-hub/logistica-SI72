@@ -35,7 +35,6 @@ public class AlmacenController {
 			almacen.setEstado(1);
 			almacen.setFechaB(java.sql.Date.valueOf(localDate));
 			almacen.setFechaC(java.sql.Date.valueOf(localDate));
-			almacen.setFechaM(java.sql.Date.valueOf(localDate));
 			almacenService.registrarA(almacen);
 			model.addAttribute("mensaje", "Se registro el almacen");
 			model.addAttribute("almacen", new Almacen());
@@ -44,7 +43,7 @@ public class AlmacenController {
 	}
 	@GetMapping("/almacen/lista")
 	public String listarA(Model model) {
-		model.addAttribute("almacenes",almacenService.activo());
+		model.addAttribute("almacenes",almacenService.listarA());
 		return "almacen/listaA";
 	}
 	@GetMapping("/almacen/lista/aux")
@@ -73,8 +72,7 @@ public class AlmacenController {
 	}
 	@PostMapping("/actualizar/almacen/{id}")
 	public String updateAl(@PathVariable Long id, @ModelAttribute("almacen") Almacen almacen, Model model) {
-		LocalDate localDate = LocalDate.now();
-
+		
 		try {
 			Almacen st = almacenService.encontrarAlmacen(id);
 
@@ -82,10 +80,9 @@ public class AlmacenController {
 			st.setCodigo(almacen.getCodigo());
 			st.setDescripcion(almacen.getDescripcion());
 			st.setDireccion(almacen.getDireccion());
-			st.setEstado(almacenFin.getEstado());
+			st.setEstado(almacen.getEstado());
 			st.setFechaB(almacenFin.getFechaB());
 			st.setFechaC(almacenFin.getFechaC());
-			st.setFechaM(java.sql.Date.valueOf(localDate));
 
 			almacenService.actualizarAlmacen(st);
 			model.addAttribute("mensaje", "Se actualizo con exito");
@@ -101,7 +98,6 @@ public class AlmacenController {
 	}
 	@GetMapping("/almacen/baja/{id}")
 	public String baja(Model model,@PathVariable Long id) {
-
 		try {
 			almacenService.dar_baja(id);
 			model.addAttribute("mensaje", "Se dio de baja al almacen con exito");
@@ -110,28 +106,8 @@ public class AlmacenController {
 			model.addAttribute("mensaje", "No fue posible dar de baja el almacen");
 
 		}
-		model.addAttribute("almacenes",almacenService.activo());
+		model.addAttribute("almacenes",almacenService.listarA());
 
 		return "almacen/listaA";
-	}
-	@GetMapping("/almacen/activar/{id}")
-	public String activar(Model model,@PathVariable Long id) {
-
-		try {
-			almacenService.activar(id);
-			model.addAttribute("mensaje", "Se activo el almacen con exito");
-
-		} catch (Exception e) {
-			model.addAttribute("mensaje", "No fue posible activar el almacen");
-
-		}
-		model.addAttribute("almacenes",almacenService.desactivo());
-
-		return "almacen/activar";
-	}
-	@GetMapping("/almacen/lista/desactivado")
-	public String listadoDesactivado(Model model) {
-		model.addAttribute("almacenes",almacenService.desactivo());
-		return "almacen/activar";
 	}
 }

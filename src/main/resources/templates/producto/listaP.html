@@ -17,29 +17,36 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>Nombre</th>
 							<th>Descripción</th>
+							<th>Stock</th>
+							<th>SKU</th>
+							<th>Unidad</th>
 							<th>Categoria</th>
 							<th>Almacen</th>
-							<th>Estado</th>
-							<th>Fecha de creacion</th>
+							<th>Fecha de registro</th>
+							<th>Fecha de baja</th>
 							<div sec:authorize="hasRole('ROLE_JEFE')">
-								<th>Mantenimiento</th>
+							<th>Mantenimiento</th>
 							</div>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="producto : ${productos}">
+							<td th:text="${producto.nombre}">HAMP</td>
 							<td th:text="${producto.descripcion}">HAMP</td>
-							<td th:text="${producto.categoria.descripcion}">HAMP</td>
+							<td th:text="${producto.stock}">1</td>
+							<td th:text="${producto.sku}">HAMP</td>
+							<td th:text="${producto.unidad}">1</td>
+							<td th:text="${producto.categoria.nombre}">HAMP</td>
 							<td th:text="${producto.almacen.direccion}">HAMP</td>
-							<td th:text="${producto.estado}">1</td>
 							<td th:text="${producto.fechaR}">HAMP</td>
+							<td th:text="${producto.fechaB}">HAMP</td>
 							<div sec:authorize="hasRole('ROLE_JEFE')">
-								<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
-									class="btn btn-success">Editar</a></td>
-								<td><a th:href="@{'/producto/baja/'+${producto.id}}"
-									class="btn btn-danger">Dar de baja</a></td>
+							<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
+								class="btn btn-success">Editar</a></td>
+	
 							</div>
 
 						</tr>

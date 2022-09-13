@@ -32,10 +32,10 @@ DELETE FROM CLIENTES;
 INSERT INTO authorities(id,authority) VALUES(1,'ROLE_ADMIN');
 INSERT INTO authorities(id,authority) VALUES(2,'ROLE_JEFE');
 INSERT INTO authorities(id,authority) VALUES(3,'ROLE_AUXILIAR');
-INSERT INTO proveedores(id,ruc,numero,razon_social,direccion,contacto,correo) VALUES(1,'AX4252','957846373','HP Company Inc.','Surco, MO','Fabricio Barrientos','proveedor1@gmail.com');
-INSERT INTO proveedores(id,ruc,numero,razon_social,direccion,contacto,correo) VALUES(2,'AX4251','957842373','Lenovo Company Inc.','Surco, MO','Maikol Taboada','proveedor2@gmail.com');
-INSERT INTO proveedores(id,ruc,numero,razon_social,direccion,contacto,correo) VALUES(3,'AC2142','957843373','MSI Company Inc.','Surco, MO','Juan Gutierrez','proveedor3@gmail.com');
-INSERT INTO proveedores(id,ruc,numero,razon_social,direccion,contacto,correo) VALUES(4,'ASG441','954342373','Huawei Company Inc.','Surco, MO','Brayan Ortiz','proveedor4@gmail.com');
+INSERT INTO proveedores(id,identificador,nombre,numero,razon_social,direccion,contacto,correo) VALUES(1,'AX4252','Fabricio Barrientos','957846373','AD','Surco, MO','NN','proveedor1@gmail.com');
+INSERT INTO proveedores(id,identificador,nombre,numero,razon_social,direccion,contacto,correo) VALUES(2,'AX4251','Maikol Taboada','957842373','SD','Surco, MO','NN','proveedor2@gmail.com');
+INSERT INTO proveedores(id,identificador,nombre,numero,razon_social,direccion,contacto,correo) VALUES(3,'AC2142','Juan Gutierrez','957843373','FB','Surco, MO','NN','proveedor3@gmail.com');
+INSERT INTO proveedores(id,identificador,nombre,numero,razon_social,direccion,contacto,correo) VALUES(4,'ASG441','Brayan Ortiz','954342373','SG','Surco, MO','NN','proveedor4@gmail.com');
 
 INSERT INTO usuarios(usu_codigo,apellidos,dni,edad,nombres,password,rol_id) VALUES(1,'Barrientos','70262920',20,'Rogger','$2a$10$JnHnNnoZiH1rTCXe7Qml7.Uzsm95jwdnmZLGnezGYzsQK0nFICEUG',2);
 INSERT INTO usuarios(usu_codigo,apellidos,dni,edad,nombres,password,rol_id) VALUES(2,'Cabrera','10245299',22,'Miguel','$2a$10$JnHnNnoZiH1rTCXe7Qml7.Uzsm95jwdnmZLGnezGYzsQK0nFICEUG',3);
@@ -44,16 +44,16 @@ INSERT INTO orden_compras(id,correlativo,fecha_registro,serie,proveedor_id,estad
 INSERT INTO orden_compras(id,correlativo,fecha_registro,serie,proveedor_id,estado) VALUES(3,'AEF00E','2022-08-30 00:00:00','VCGV0D',3,0);
 INSERT INTO orden_compras(id,correlativo,fecha_registro,serie,proveedor_id,estado) VALUES(4,'PMJ001','2022-08-30 00:00:00','ASCV0W',4,0);
 
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Televisores',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Cocinas',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Redes',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
+INSERT INTO categorias(descripcion,fecha_baja,fecha_creacion,nombre,estado) VALUES('Productos de tv','2022-09-10 00:00:00','2022-08-30 00:00:00','Televisores',1);
+INSERT INTO categorias(descripcion,fecha_baja,fecha_creacion,nombre,estado) VALUES('Productos de cocina','2022-09-10 00:00:00','2022-08-30 00:00:00','Cocinas',1);
+INSERT INTO categorias(descripcion,fecha_baja,fecha_creacion,nombre,estado) VALUES('Productos de hogar','2022-09-10 00:00:00','2022-08-30 00:00:00','Redes',1);
 
-INSERT INTO almacenes(codigo,descripcion,direccion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('ACDF54SC','Almacen Productos','Surco, Mo',1,'2022-09-20 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
+INSERT INTO almacenes(codigo,descripcion,direccion,estado,fecha_baja,fecha_creacion) VALUES('ACDF54','Almacen Productos','Surco, Mo',1,'2022-09-20 00:00:00','2022-08-30 00:00:00');
 
 
-INSERT INTO productos(descripcion,estado,fecha_baja,fecha_modificacion,fecha_registro,sku,stock,unidad,almacen_id,categoria_id) VALUES('Samsung TV AU800',1,'2022-09-10 00:00:00','2022-09-10 00:00:00','2022-08-30 00:00:00','ACDC1205',0,'m',1,1);
-INSERT INTO productos(descripcion,estado,fecha_baja,fecha_modificacion,fecha_registro,sku,stock,unidad,almacen_id,categoria_id) VALUES('Cocina Bosch',1,'2022-09-10 00:00:00','2022-09-10 00:00:00','2022-08-30 00:00:00','FCVSD105',0,'cm',1,2);
-INSERT INTO productos(descripcion,estado,fecha_baja,fecha_modificacion,fecha_registro,sku,stock,unidad,almacen_id,categoria_id) VALUES('Router Huawei',1,'2022-09-10 00:00:00','2022-09-10 00:00:00','2022-08-30 00:00:00','PSFJC125',0,'cm',1,3);
+INSERT INTO productos(descripcion,fecha_baja,fecha_registro,nombre,sku,stock,unidad,almacen_id,categoria_id) VALUES('55 pulgadas','2022-09-10 00:00:00','2022-08-30 00:00:00','Samsung TV AU800','ACDC1205',0,'m',1,1);
+INSERT INTO productos(descripcion,fecha_baja,fecha_registro,nombre,sku,stock,unidad,almacen_id,categoria_id) VALUES('6 Hornillos','2022-09-10 00:00:00','2022-08-30 00:00:00','Bosch Cocina 567','FCVSD105',0,'cm',1,2);
+INSERT INTO productos(descripcion,fecha_baja,fecha_registro,nombre,sku,stock,unidad,almacen_id,categoria_id) VALUES('300 mbps','2022-09-10 00:00:00','2022-08-30 00:00:00','Router Huawei','PSFJC125',0,'cm',1,3);
 
 INSERT INTO orden_compra_detalle(id,cantidad,costo,orden_id,producto_id) VALUES(1,5,1000,1,1);
 INSERT INTO orden_compra_detalle(id,cantidad,costo,orden_id,producto_id) VALUES(2,10,3000,1,2);
