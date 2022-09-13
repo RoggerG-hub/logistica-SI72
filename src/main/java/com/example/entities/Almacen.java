@@ -38,9 +38,7 @@ public class Almacen {
 	@Size(min=5,max=100)
 	@Column(name = "direccion", nullable = false)
 	private String direccion;
-	@Min(value=0,message = "Debe ser un numero mayor")
-	@Max(value=1,message = "Debe ser un numero menor")
-    @NotNull(message = "No puede ser nulo")
+
 	private int estado;
 	@Past(message = "Fecha de creacion no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,6 +49,10 @@ public class Almacen {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_baja", nullable = false)
 	private Date fechaB;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_modificacion", nullable = false)
+	private Date fechaM;
 	public Long getId() {
 		return id;
 	}
@@ -93,12 +95,20 @@ public class Almacen {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	public Almacen(Long id, @NotEmpty(message = "Ingrese una descripción") String descripcion,
+	public Date getFechaM() {
+		return fechaM;
+	}
+	public void setFechaM(Date fechaM) {
+		this.fechaM = fechaM;
+	}
+	public Almacen() {
+		super();
+	}
+	public Almacen(Long id, @NotEmpty(message = "Ingrese una descripción") @Size(min = 5, max = 50) String descripcion,
 			@Size(min = 8, max = 8) @NotEmpty(message = "Ingresar el codigo del almacen") String codigo,
-			@NotEmpty(message = "Ingrese la dirección del almacen") String direccion,
-			@Min(value = 0, message = "Debe ser un numero mayor") @Max(value = 1, message = "Debe ser un numero menor") @NotNull(message = "No puede ser nulo") int estado,
-			@Past(message = "Fecha de creacion no correcta") Date fechaC,
-			@Past(message = "Fecha de creacion no correcta") Date fechaB) {
+			@NotEmpty(message = "Ingrese la dirección del almacen") @Size(min = 5, max = 100) String direccion,
+			@NotNull(message = "No puede ser nulo") int estado,
+			@Past(message = "Fecha de creacion no correcta") Date fechaC, Date fechaB, Date fechaM) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -107,9 +117,7 @@ public class Almacen {
 		this.estado = estado;
 		this.fechaC = fechaC;
 		this.fechaB = fechaB;
-	}
-	public Almacen() {
-		super();
+		this.fechaM = fechaM;
 	}
 	
 	

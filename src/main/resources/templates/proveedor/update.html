@@ -15,14 +15,13 @@
 				<form th:object="${proveedor}" th:action="@{'/actualizar/proveedor/'+ ${proveedor.id}}"
 					th:method="post">
 					<div class="form-group row">
-						<label for="identificador" class="col-sm-2 col-form-label">Identificador
-							de proveedor(AFX-000)</label>
+						<label for="identificador" class="col-sm-2 col-form-label">Ruc</label>
 						<div class="col-sm-6">
 							<input type="text" maxlength="6" class="form-control" id="identificador"
-								th:field="*{identificador}" /> <small
+								th:field="*{ruc}" /> <small
 								class="form-text text-danger"
-								th:if="${#fields.hasErrors('identificador')}"
-								th:errors="*{identificador}"></small>
+								th:if="${#fields.hasErrors('ruc')}"
+								th:errors="*{ruc}"></small>
 						</div>
 					</div>
 					<div class="form-group row">

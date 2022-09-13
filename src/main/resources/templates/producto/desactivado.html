@@ -22,9 +22,7 @@
 							<th>Almacen</th>
 							<th>Estado</th>
 							<th>Fecha de creacion</th>
-							<div sec:authorize="hasRole('ROLE_JEFE')">
-								<th>Mantenimiento</th>
-							</div>
+							<th>Mantenimiento</th>
 
 						</tr>
 					</thead>
@@ -33,14 +31,11 @@
 							<td th:text="${producto.descripcion}">HAMP</td>
 							<td th:text="${producto.categoria.descripcion}">HAMP</td>
 							<td th:text="${producto.almacen.direccion}">HAMP</td>
-							<td th:text="${producto.estado}">1</td>
+							<td th:text="${producto.estado}">HAMP</td>
 							<td th:text="${producto.fechaR}">HAMP</td>
-							<div sec:authorize="hasRole('ROLE_JEFE')">
-								<td><a th:href="@{'/producto/edit/'+ ${producto.id}}"
-									class="btn btn-success">Editar</a></td>
-								<td><a th:href="@{'/producto/baja/'+${producto.id}}"
-									class="btn btn-danger">Dar de baja</a></td>
-							</div>
+							<td><a th:href="@{'/producto/activar/'+ ${producto.id}}"
+								class="btn btn-success">Activar</a></td>
+
 
 						</tr>
 					</tbody>

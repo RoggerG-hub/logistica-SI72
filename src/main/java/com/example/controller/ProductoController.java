@@ -42,6 +42,8 @@ public class ProductoController {
 		LocalDate localDate = LocalDate.now();
 		producto.setFechaB(java.sql.Date.valueOf(localDate));
 		producto.setFechaR(java.sql.Date.valueOf(localDate));
+		producto.setFechaM(java.sql.Date.valueOf(localDate));
+
 		producto.setStock(0);
 		int rpta;
 		if(result.hasErrors()) {
@@ -72,8 +74,13 @@ public class ProductoController {
 	}
 	@GetMapping("/producto/lista")
 	public String listarProductos(Model model) {
-		model.addAttribute("productos",productoService.listarProductos());
+		model.addAttribute("productos",productoService.activado());
 		return "producto/listaP";
+	}
+	@GetMapping("/producto/desactivado")
+	public String listarProductosD(Model model) {
+		model.addAttribute("productos",productoService.desactivado());
+		return "producto/desactivado";
 	}
 	@GetMapping("/producto/edit/{id}")
 	public String editP(@PathVariable Long id, Model model) {
@@ -93,17 +100,17 @@ public class ProductoController {
 			model.addAttribute("mensaje", "El producto no se puede eliminar");
 
 		}
-		model.addAttribute("productos",productoService.listarProductos());
+		model.addAttribute("productos",productoService.activado());
 		return "producto/listaP";
 	}
 	@PostMapping("/producto/actualizar/{id}")
 	public String updateLibro(@PathVariable Long id, @ModelAttribute("producto") Producto producto, Model model) {
-		
+		LocalDate localDate = LocalDate.now();
+
 		try {
 			Producto st = productoService.encontrarProducto(id);
 
 			st.setId(id);
-			st.setNombre(producto.getNombre());
 			st.setDescripcion(producto.getDescripcion());
 			st.setSku(producto.getSku());
 			st.setStock(producto.getStock());
@@ -112,7 +119,7 @@ public class ProductoController {
 			st.setCategoria(producto.getCategoria());
 			st.setFechaB(st.getFechaB());
 			st.setFechaR(st.getFechaR());
-			
+			st.setFechaM(java.sql.Date.valueOf(localDate));
 			productoService.actualizar(st);
 		
 				model.addAttribute("mensaje", "Se actualizo los datos del producto");
@@ -125,5 +132,31 @@ public class ProductoController {
 
 		return "redirect:/producto/lista";
 
+	}
+	@GetMapping("/producto/baja/{id}")
+	public String bajaP( Model model,@PathVariable Long id) {
+		try {
+			productoService.dar_baja(id);
+			model.addAttribute("mensaje", "Se dio de baja el producto");
+
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "No se pudo dar de baja el producto");
+
+		}
+		model.addAttribute("productos",productoService.activado());
+		return "producto/listaP";
+	}
+	@GetMapping("/producto/activar/{id}")
+	public String activaP( Model model,@PathVariable Long id) {
+		try {
+			productoService.activar(id);
+			model.addAttribute("mensaje", "Se activo el producto");
+
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "No se pudo activar el producto");
+
+		}
+		model.addAttribute("productos",productoService.desactivado());
+		return "producto/desactivado";
 	}
 }

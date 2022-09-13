@@ -21,10 +21,10 @@ public class CategoriaService {
 	}
 	public int registrarCategoria(Categoria c) 
 	{
-		int existe = categoriaRepository.verificarExistencia(c.getNombre());
+		int existe = categoriaRepository.verificarExistencia(c.getDescripcion());
 		if(existe==0) 
 		{
-			if(buscar(c.getNombre()).size()==0) 
+			if(buscar(c.getDescripcion()).size()==0) 
 			{
 				
 				categoriaRepository.save(c);
@@ -41,7 +41,7 @@ public class CategoriaService {
 	}
 	private List<Categoria> buscar(String nombre) 
 	{
-		return categoriaRepository.findByNombreContainingIgnoreCase(nombre);
+		return categoriaRepository.findByDescripcionContainingIgnoreCase(nombre);
 	}
 	public Categoria encontrarCategoria(Long c) 
 	{
@@ -60,5 +60,21 @@ public class CategoriaService {
 		nCategoria.setEstado(0);
 		categoriaRepository.save(nCategoria);
 	}
-	
+	public List<Categoria> activo()
+	{
+		return categoriaRepository.findByEstado(1);
+	}
+	public List<Categoria> desactivo()
+	{
+		return categoriaRepository.findByEstado(0);
+	}
+	public void activar(Long id) 
+	{
+		LocalDate localDate = LocalDate.now();
+
+		Categoria nCategoria=categoriaRepository.findById(id).get();
+		nCategoria.setFechaB(java.sql.Date.valueOf(localDate));
+		nCategoria.setEstado(1);
+		categoriaRepository.save(nCategoria);
+	}
 }

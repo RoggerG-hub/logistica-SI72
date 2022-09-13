@@ -17,14 +17,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "proveedores")
-public class Proveedor implements Serializable{
+public class Proveedor{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Ingrese el nombre del proveedor")
-	@Column(name = "nombre", nullable = false, length = 70)
-	private String nombre;
+
 	@Size(min = 9, max = 9)
 	@NotEmpty(message = "Ingresar el numero de contacto")
 	@Column(name = "numero", nullable = false, length = 9)
@@ -39,21 +37,16 @@ public class Proveedor implements Serializable{
 	@Column(name = "correo", nullable = false, length = 100)
 	private String correo;
 	@Size(min = 6, max = 6)
-	@NotEmpty(message = "Ingresar el identificador del proveedor")
-	@Column(name = "identificador", nullable = false, length = 6)
-	private String identificador;
+	@NotEmpty(message = "Ingresar el RUC del proveedor")
+	@Column(name = "ruc", nullable = false, length = 6)
+	private String ruc;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+
 	public String getNumero() {
 		return numero;
 	}
@@ -61,11 +54,12 @@ public class Proveedor implements Serializable{
 		this.numero = numero;
 	}
 
-	public String getIdentificador() {
-		return identificador;
+
+	public String getRuc() {
+		return ruc;
 	}
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
 	}
 	public String getRazon() {
 		return razon;
@@ -94,19 +88,19 @@ public class Proveedor implements Serializable{
 	public Proveedor() {
 		super();
 	}
-	public Proveedor(Long id, @NotEmpty(message = "Ingrese el nombre del proveedor") String nombre,
+	public Proveedor(Long id,
 			@Size(min = 9, max = 9) @NotEmpty(message = "Ingresar el numero de contacto") String numero, String razon,
-			String direccion, String contacto, String correo,
-			@Size(min = 6, max = 6) @NotEmpty(message = "Ingresar el identificador del proveedor") String identificador) {
+			String direccion, String contacto, @Email(message = "Email should be valid") String correo,
+			@Size(min = 6, max = 6) @NotEmpty(message = "Ingresar el RUC del proveedor") String ruc) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
 		this.numero = numero;
 		this.razon = razon;
 		this.direccion = direccion;
 		this.contacto = contacto;
 		this.correo = correo;
-		this.identificador = identificador;
+		this.ruc = ruc;
 	}
+
 
 }
